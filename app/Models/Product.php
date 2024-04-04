@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,7 +52,5 @@ class Product extends Model
     protected $casts = [
         'imported_t' => 'datetime',
     ];
-
-    // Aqui você pode definir relacionamentos, como belongsTo, hasMany, etc., conforme necessário.
 
 }

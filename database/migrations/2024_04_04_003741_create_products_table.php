@@ -15,10 +15,10 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('code')->unique();
+            $table->bigInteger('code')->unique();
             $table->string('status');
             $table->dateTime('imported_t');
-            $table->string('url');
+            $table->text('url');
             $table->string('creator');
             $table->bigInteger('created_t');
             $table->bigInteger('last_modified_t');
