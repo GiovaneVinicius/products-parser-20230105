@@ -12,5 +12,3 @@ use App\Http\Controllers\Controller;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', [Controller::class, 'importProductsFromUrl']);
