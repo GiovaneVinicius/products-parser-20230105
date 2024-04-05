@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/token', [ProductController::class, 'generateToken']);
+Route::get('/', [ProductController::class, 'apiDetails']);
+Route::put('/products/{code}', [ProductController::class, 'updateProduct']);
+Route::delete('/products/{code}', [ProductController::class, 'deleteProduct']);
+Route::get('/products/{code}', [ProductController::class, 'getProductByCode']);
+Route::get('/products', [ProductController::class, 'getAllProducts']);

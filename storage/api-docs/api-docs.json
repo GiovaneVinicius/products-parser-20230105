@@ -1,0 +1,307 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Produtos",
+        "description": "Documentação da API de Produtos",
+        "contact": {
+            "name": "Giovane Vinicius",
+            "email": "gio_vinicius@hotmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/token": {
+            "post": {
+                "tags": [
+                    "Token"
+                ],
+                "summary": "Gerar uma chave de API",
+                "description": "Gera uma nova chave de API para o usuário consultar os dados com segurança.",
+                "operationId": "generateToken",
+                "responses": {
+                    "200": {
+                        "description": "Chave de API gerada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "api_key": {
+                                            "description": "Chave de API gerada",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/": {
+            "get": {
+                "tags": [
+                    "API"
+                ],
+                "summary": "Obter detalhes da API",
+                "description": "Retorna detalhes da API, incluindo status de conexão, última execução do cron, tempo de atividade e uso de memória.",
+                "operationId": "apiDetails",
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida"
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/{code}": {
+            "get": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Obter informações do produto pelo código",
+                "description": "Retorna informações do produto pelo seu código",
+                "operationId": "getProductByCode",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Código do produto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Atualizar produto",
+                "description": "Atualiza um produto específico",
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Código do produto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produto atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Produto não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Excluir produto",
+                "description": "Exclui um produto específico",
+                "operationId": "deleteProduct",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Código do produto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto excluído com sucesso"
+                    },
+                    "404": {
+                        "description": "Produto não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Obter todos os produtos",
+                "description": "Retorna todos os produtos",
+                "operationId": "getAllProducts",
+                "responses": {
+                    "200": {
+                        "description": "Operação bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "code": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "imported_t": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "creator": {
+                        "type": "string"
+                    },
+                    "created_t": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "last_modified_t": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "product_name": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "string"
+                    },
+                    "brands": {
+                        "type": "string"
+                    },
+                    "categories": {
+                        "type": "string"
+                    },
+                    "labels": {
+                        "type": "string"
+                    },
+                    "cities": {
+                        "type": "string"
+                    },
+                    "purchase_places": {
+                        "type": "string"
+                    },
+                    "stores": {
+                        "type": "string"
+                    },
+                    "ingredients_text": {
+                        "type": "string"
+                    },
+                    "traces": {
+                        "type": "string"
+                    },
+                    "serving_size": {
+                        "type": "string"
+                    },
+                    "serving_quantity": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "nutriscore_score": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "nutriscore_grade": {
+                        "type": "string"
+                    },
+                    "main_category": {
+                        "type": "string"
+                    },
+                    "image_url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "APIKeyAuth": {
+                "type": "apiKey",
+                "description": "Autenticação por chave de API",
+                "name": "API-Key",
+                "in": "header"
+            }
+        }
+    }
+}
