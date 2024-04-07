@@ -34,18 +34,24 @@ Criar um banco de dados MongoDB usando Atlas: https://www.mongodb.com/cloud/atla
 ### Requisito 2
 Criar uma REST API com as melhores práticas de desenvolvimento, Design Patterns, SOLID e DDD;
 * Decisão: Para atender aos requisitos de criar uma REST API com as melhores práticas de desenvolvimento, Design Patterns, SOLID e DDD, escolhi utilizar o framework Laravel. O Laravel é reconhecido por sua elegância, eficiência e robustez no desenvolvimento de aplicações web, incluindo APIs. Ele oferece uma ampla gama de recursos que facilitam a implementação de boas práticas de desenvolvimento, como:
+
     * Padrões de Design e SOLID: O Laravel segue muitos padrões de design e princípios SOLID, o que facilita a manutenção e extensibilidade do código.
+
     * Arquitetura DDD (Domain-Driven Design): O framework utilizado permite a criação de uma arquitetura de software baseada em domínio, separando claramente as camadas de aplicação, domínio e infraestrutura. Isso ajuda a manter um código mais organizado, facilitando a compreensão e a manutenção da aplicação.
+
     * Facilidade de Desenvolvimento: Com o Laravel, é possível desenvolver rapidamente uma API RESTful, graças a recursos como Eloquent ORM, sistema de roteamento simples e expressivo, middleware para tratamento de requisições HTTP e integração com bibliotecas populares de autenticação e autorização, como JWT e OAuth.
 
 ### Requisito 3
 Integrar a API com o banco de dados criado para persistir os dados
 * Decisão: No desenvolvimento deste projeto, configurei o banco de dados MySQL e é necessário criar a base de dados correspondente para sua aplicação.
+
     * Para iniciar, você precisará adicionar as informações de conexão com o banco de dados no arquivo .env do Laravel. Certifique-se de incluir o nome do banco de dados, usuário e senha corretos para estabelecer a conexão.
+
     * Após configurar o arquivo .env, execute o comando abaixo para criar as tabelas do banco de dados:
         ```
         php artisan migrate
         ```
+
     * Este comando criará todas as tabelas definidas em suas migrações.
 
 ### Requisito 4
@@ -73,7 +79,9 @@ Explore nossa documentação recentemente atualizada para aprender como utilizar
 
 ### Requisito 6 (Extra)
 Configurar um sistema de alerta se tem algum falho durante o Sync dos produtos;
-* Decisão: Implementação de um sistema de alerta para lidar com possíveis falhas. Agora, se ocorrerem falhas durante a importação, elas serão registradas no arquivo de logs do Laravel, localizado em storage/logs/laravel.log. Além disso, para garantir uma maior confiabilidade e segurança no processo de importação, é possível verificar o status da última importação na tabela APIStatus do banco de dados. Essas atualizações visam proporcionar uma experiência mais estável e tranquila durante o processo de importação de produtos.
+* Decisão: Implementação de um sistema de alerta para lidar com possíveis falhas. Agora, se ocorrerem falhas durante a importação, elas serão registradas no arquivo de logs do Laravel, localizado em storage/logs/laravel.log. 
+
+Além disso, para garantir uma maior confiabilidade e segurança no processo de importação, é possível verificar o status da última importação na tabela APIStatus do banco de dados. Essas atualizações visam proporcionar uma experiência mais estável e tranquila durante o processo de importação de produtos.
 
 ### Requisito 7 (Extra)
 Descrever a documentação da API utilizando o conceito de Open API 3.0;
@@ -87,15 +95,15 @@ Passo a passo do uso da API:
 1. Solicitando API_Key para utilizar nas requisições posteriores da API:
 
 <img src="https://open-food-facts.firo.com.br/off_1.png" alt="API_Key">
-<br>
+
 2. Adicionando API_Key ao método "Authorize" para ficar gravado o token nas requisições futuras:
 
 <img src="https://open-food-facts.firo.com.br/off_2.png" alt="Authorize">
-<br>
+
 3. Realizando requisição para um Endpoint da API com API_Key salvo no cabeçalho da solicitação:
 
 <img src="https://open-food-facts.firo.com.br/off_3.png" alt="Using">
-<br>
+
 
 ### Requisito 8 (Extra)
 Escrever Unit Tests para os endpoints da API;
@@ -112,9 +120,11 @@ Escrever um esquema de segurança utilizando API KEY nos endpoints.
 * Decisão: Para acessar os endpoints da nossa API, os usuários precisam obter uma chave de API válida. Isso pode ser feito através do endpoint /token, que é responsável por gerar e fornecer uma chave de API aos usuários autorizados.
 
 Instruções para Obtenção da Chave de API:
+
 - Acesso ao Endpoint /token:
     - Os usuários autorizados podem enviar uma solicitação para o endpoint /token da nossa API.
     - Este endpoint processará a solicitação e, se validada, retornará uma chave de API única para o usuário.
+
 - Inclusão da Chave de API nas Solicitações:
     - Após receber a chave de API do endpoint /token, os usuários devem incluí-la no cabeçalho da solicitação ao acessar outros endpoints da API.
     - A chave de API deve ser fornecida no cabeçalho X-API-Key.
