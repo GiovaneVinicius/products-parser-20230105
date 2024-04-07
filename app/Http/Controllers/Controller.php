@@ -18,7 +18,7 @@ class Controller extends BaseController
     function importProductsFromUrl() {
         for($i = 1; $i <= 9; $i++)
         {
-            // Get all .gz files
+            // Buscar todos os arquivos .gz
             $gzip_file = 'https://challenges.coode.sh/food/data/json/products_0'.$i.'.json.gz';
             $destination = 'products_0'.$i.'.json';
 
@@ -78,8 +78,8 @@ class Controller extends BaseController
                     ]
                 );
 
-                if ($product) $status = "SUCCESSFULLY IMPORTED DATA.";
-                else $status = "DATA IMPORT FAILURE, PLEASE REFER TO laravel.log.";
+                if ($product) $status = "ARQUIVOS BAIXADOS COM SUCESSO!";
+                else $status = "FALHA NO DOWNLOAD, POR FAVRO VERIFIQUE O ARQUIVO laravel.log.";
             }
         }
         $memory = memory_get_usage();
